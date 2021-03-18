@@ -9,8 +9,22 @@ class Owner(models.Model):
 
 
 class Drone(models.Model):
+    IDLE = "IDL"
+    MOVING = "MOV"
+    EXECUTING = "EXT"
+    CHARGING = "CHG"
+    DISABLED = "DIS"
+
+    DRONE_STATUS_LIST = [
+        (IDLE, "Idle"),
+        (MOVING, "Moving"),
+        (EXECUTING, "Executing"),
+        (CHARGING, "Charging"),
+        (DISABLED, "Disabled"),
+    ]
+
     id = models.IntegerField(primary_key=True)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=DRONE_STATUS_LIST, default=IDLE)
     lift_capacity = models.IntegerField()
     location = models.FloatField()
     charge = models.FloatField()
@@ -24,12 +38,26 @@ class Recipient(models.Model):
 
 
 class Order(models.Model):
+    INFO_RECEIVED = "Information received"
+    IN_TRANSIT = "In transit"
+    OUT_OF_DELIVERY = "Out for delivery"
+    AVAILABLE_FOR_PICKUP = "Available for pickup"
+    DELIVERED = "Delivered"
+
+    ORDER_STATUS_LIST = [
+        (INFO_RECEIVED, "Information received"),
+        (IN_TRANSIT, "In transit"),
+        (OUT_OF_DELIVERY, "Out for delivery"),
+        (AVAILABLE_FOR_PICKUP, "Available for pickup"),
+        (DELIVERED, "Delivered"),
+    ]
+
     id = models.IntegerField(primary_key=True)
     mass = models.FloatField()
-    status = models.CharField(max_length=20)
-    departure_point = models.FloatField()
-    arrival_point = models.FloatField()
+    status = models.CharField(max_length=20, choices=ORDER_STATUS_LIST, default=INFO_RECEIVED)
+    departure_point = models.CharField(max_length=30)
+    arrival_point = models.CharField(max_length=30)
     aprox_arrival_time = models.DateTimeField()
     distance = models.FloatField()
-    passport = models.ForeignKey(Recipient, on_delete=models.CASCADE)
+    recipient_token = models.ForeignKey(Recipient, on_delete=models.CASCADE)
     executor = models.ForeignKey(Drone, on_delete=models.DO_NOTHING)
