@@ -40,7 +40,3 @@ class DatabaseAdapter:
     @staticmethod
     def get_drones_by_status(status: str) -> QuerySet:
         return api_models.Drone.objects.filter(status=status)
-
-    @staticmethod
-    def get_available_drones() -> QuerySet:
-        return api_models.Drone.objects.filter(status=api_models.Drone.IDLE)
