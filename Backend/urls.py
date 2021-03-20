@@ -19,5 +19,8 @@ import backend_api.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', views.MyView.as_view()),
+    path('droneList/', views.DroneListView.as_view()),
+    path('orderList/', views.OrderListView.as_view()),
+    path('ownerList/', views.OwnerListView.as_view()),
+    path('recipientList/', views.RecipientListView.as_view()),
 ]
