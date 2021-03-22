@@ -23,4 +23,6 @@ urlpatterns = [
     path('orderList/', views.OrderListView.as_view()),
     path('ownerList/', views.OwnerListView.as_view()),
     path('recipientList/', views.RecipientListView.as_view()),
+    path('availDronesList/', views.AvailableDronesList.as_view()),
+    path('algo/', views.PathAlgoView.as_view()),
 ]

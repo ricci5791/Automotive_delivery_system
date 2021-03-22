@@ -24,3 +24,16 @@ class RecipientListView(generics.ListAPIView):
 class OrderListView(generics.ListAPIView):
     queryset = DatabaseAdapter.get_orders_list()
     serializer_class = serializers.OrderSerializer
+
+
+class AvailableDronesList(generics.ListAPIView):
+    queryset = DatabaseAdapter.get_available_drones()
+    serializer_class = serializers.DroneSerializer
+
+
+class PathAlgoView(views.APIView):
+
+    def get(self, request):
+        path = Path(int(request.query_params.get("order_id")))
+
+        return Response(data=path.choose_optimal_drone(), status=status.HTTP_200_OK)
