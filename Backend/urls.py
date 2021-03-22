@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import backend_api.views as views
+from rest_framework.authtoken import views as rest_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('token/', rest_views.obtain_auth_token),
     path('droneList/', views.DroneListView.as_view()),
     path('orderList/', views.OrderListView.as_view()),
     path('ownerList/', views.OwnerListView.as_view()),
